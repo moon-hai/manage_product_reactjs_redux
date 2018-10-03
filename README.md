@@ -1,4 +1,15 @@
-# Simple Sale By ReactJS/Redux
+# Manage Product By ReactJS/Redux
+
+## Features
+1. Fetch all products
+2. Add product
+3. Edit product
+4. Delete product
+
+## Using
+1. Reactjs
+2. Redux + Redux thunk
+3. React router
 
 ## Template
 * Using Bootstrap to generate theme
