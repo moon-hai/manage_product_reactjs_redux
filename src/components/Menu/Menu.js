@@ -31,17 +31,6 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
 }
 
 export default class Menu extends Component {
-  render() {
-    return (
-      <div className="navbar navbar-default">
-        <Link to="/" className="navbar-brand">TEST</Link>
-        <ul className="nav navbar-nav">
-          { this.showMenuLink }
-        </ul>
-      </div>
-    )
-  }
-
   showMenuLink = menus.map((item, index) => {
     return(
       <MenuLink
@@ -52,4 +41,15 @@ export default class Menu extends Component {
       />
     )
   })
+
+  render() {
+    return (
+      <div className="navbar navbar-default">
+        <Link to="/" className="navbar-brand">TEST</Link>
+        <ul className="nav navbar-nav">
+          { this.showMenuLink }
+        </ul>
+      </div>
+    )
+  }
 }
