@@ -1,16 +1,51 @@
 import React, { Component } from 'react'
 
 class ProductAction extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      id: '',
+      name: '',
+      price: '',
+      status: ''
+    }
+  }
+
   onChange = event => {
-    this.props.onChange(event)
+    const target = event.target
+    const name = target.name
+    const value = target.type === 'checkbox' ? target.checked : target.value
+
+    this.setState({
+      [name]: value
+    })
   }
 
   onSubmitForm = event => {
-    this.props.onSubmitForm(event)
+    event.preventDefault()
+    const { id, name, price, status } = this.state
+    const product = {
+      id: id,
+      name: name,
+      price: price,
+      status: status
+    }
+    this.props.onSubmitForm(product)
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { id, name, price, status } = newProps.product
+
+    this.setState({
+      id: id,
+      name: name,
+      price: price,
+      status: status
+    })
   }
 
   render() {
-    const { name, price, status } = this.props.product
+    const { name, price, status } = this.state
 
     return(
       <form onSubmit={ this.onSubmitForm }>

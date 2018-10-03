@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import callApi from '../../utils/apiCaller'
-import { addProductRequest, fetchProductRequest } from '../../actions/index'
+import { addProductRequest, fetchProductRequest, updateProductRequest } from '../../actions/index'
 
 import ProductAction from '../../components/ProductAction/ProductAction'
 
@@ -15,37 +14,15 @@ class ProductActionPage extends Component {
     }
   }
 
-  onChange = e => {
-    const target = e.target
-    const name = target.name
-    const value = target.type === 'checkbox' ? target.checked : target.value
-
-    this.setState({
-      [name]: value
-    })
-  }
-
-  onSubmitForm = e => {
-    e.preventDefault()
-    const { id, txtName, txtPrice, chkbStatus } = this.state
+  onSubmitForm = product => {
+    if (!product) alert('No product input!')
     const { history } = this.props
-    const product = {
-      id: id,
-      name: txtName,
-      price: txtPrice,
-      status: chkbStatus
-    }
 
-    if (!this.state.id) {
-      callApi('products', 'POST', {
-        name: txtName,
-        price: txtPrice,
-        status: chkbStatus
-      }).then(res => {
-        history.goBack()
-      })
-    } else {
+    if (!product.id) {
       this.props.addProduct(product)
+      history.goBack()
+    } else {
+      this.props.updateProduct(product)
       history.goBack()
     }
   }
@@ -56,7 +33,6 @@ class ProductActionPage extends Component {
       <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <ProductAction
           product={ product }
-          onChange={ this.onChange }
           onSubmitForm={ this.onSubmitForm }
         />
         <Link to="/product/list" className="btn btn-danger mt-10">Back</Link>
@@ -72,6 +48,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, props) => ({
   addProduct: product => {
     dispatch(addProductRequest(product))
+  },
+  updateProduct: product => {
+    dispatch(updateProductRequest(product))
   },
   fetchProduct: productId => {
     dispatch(fetchProductRequest(productId))

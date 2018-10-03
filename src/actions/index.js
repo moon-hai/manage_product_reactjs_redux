@@ -15,6 +15,13 @@ export const addProductRequest = product => dispatch => {
           })
 }
 
+export const updateProductRequest = product => dispatch => {
+  return callApi(`products/${product.id}`, 'PUT', product)
+          .then(res => {
+            dispatch(updateProduct(product))
+          })
+}
+
 export const deleteProductRequest = productId => dispatch => {
   return callApi(`products/${productId}`, 'DELETE', null)
           .then(res => {
@@ -36,6 +43,11 @@ export const fetchProducts = products => ({
 
 export const addProduct = product => ({
   type: type.ADD_PRODUCT,
+  product
+})
+
+export const updateProduct = product => ({
+  type: type.UPDATE_PRODUCT,
   product
 })
 
