@@ -8,11 +8,11 @@ import Product from '../../components/Product/Product'
 
 class ProductsPage extends Component {
   componentDidMount () {
-    this.props.fetchAllProducts()
+    this.props.fetchProductsRequest()
   }
 
   onDeleteProduct = productId => {
-    this.props.deleteProduct(productId)
+    this.props.deleteProductRequest(productId)
   }
 
   render() {
@@ -46,13 +46,6 @@ const mapStateToProps = state => ({
   products: state.products.products
 })
 
-const mapDispatchToProp = (dispatch, props) => ({
-  fetchAllProducts: () => {
-    dispatch(fetchProductsRequest())
-  },
-  deleteProduct: (productId) => {
-    dispatch(deleteProductRequest(productId))
-  }
-})
+const mapDispatchToProps = { fetchProductsRequest, deleteProductRequest }
 
-export default connect(mapStateToProps, mapDispatchToProp)(ProductsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage)

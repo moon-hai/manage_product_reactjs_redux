@@ -10,7 +10,7 @@ class ProductActionPage extends Component {
   componentDidMount () {
     const { match } = this.props
     if (match) {
-      this.props.fetchProduct(match.params.id)
+      this.props.fetchProductRequest(match.params.id)
     }
   }
 
@@ -19,10 +19,10 @@ class ProductActionPage extends Component {
     const { history } = this.props
 
     if (!product.id) {
-      this.props.addProduct(product)
+      this.props.addProductRequest(product)
       history.goBack()
     } else {
-      this.props.updateProduct(product)
+      this.props.updateProductRequest(product)
       history.goBack()
     }
   }
@@ -45,16 +45,6 @@ const mapStateToProps = state => ({
   product: state.product.product
 })
 
-const mapDispatchToProps = (dispatch, props) => ({
-  addProduct: product => {
-    dispatch(addProductRequest(product))
-  },
-  updateProduct: product => {
-    dispatch(updateProductRequest(product))
-  },
-  fetchProduct: productId => {
-    dispatch(fetchProductRequest(productId))
-  }
-})
+const mapDispatchToProps = { addProductRequest, updateProductRequest, fetchProductRequest }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductActionPage)
